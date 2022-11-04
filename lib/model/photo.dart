@@ -26,7 +26,7 @@ class Photo {
     required this.pageURL,
     required this.type,
     required this.tags,
-    required this.previewURL,
+    required this.previewUrl,
     required this.previewWidth,
     required this.previewHeight,
     required this.webformatURL,
@@ -50,7 +50,7 @@ class Photo {
   late final String pageURL;
   late final String type;
   late final String tags;
-  late final String previewURL;
+  late final String previewUrl;
   late final int previewWidth;
   late final int previewHeight;
   late final String webformatURL;
@@ -74,7 +74,7 @@ class Photo {
     pageURL = json['pageURL'];
     type = json['type'];
     tags = json['tags'];
-    previewURL = json['previewURL'];
+    previewUrl = json['previewURL'];
     previewWidth = json['previewWidth'];
     previewHeight = json['previewHeight'];
     webformatURL = json['webformatURL'];
@@ -100,7 +100,7 @@ class Photo {
     _data['pageURL'] = pageURL;
     _data['type'] = type;
     _data['tags'] = tags;
-    _data['previewURL'] = previewURL;
+    _data['previewURL'] = previewUrl;
     _data['previewWidth'] = previewWidth;
     _data['previewHeight'] = previewHeight;
     _data['webformatURL'] = webformatURL;
@@ -134,3 +134,31 @@ class Photo {
     return 'Photo{id: $id}';
   }
 }
+//
+// import 'package:equatable/equatable.dart';
+// import 'package:json_annotation/json_annotation.dart';
+//
+// part 'photo.g.dart';
+//
+// @JsonSerializable()
+// class Photo extends Equatable {
+//   final int id;
+//   final String tags;
+//   @JsonKey(name: 'previewURL')
+//   final String previewUrl;
+//
+//   const Photo({
+//     required this.id,
+//     required this.tags,
+//     required this.previewUrl,
+//   });
+//
+//   factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
+//
+//   Map<String, dynamic> toJson() => _$PhotoToJson(this);
+//
+//   @override
+//   List<Object?> get props => [id];
+// }
+//
+
