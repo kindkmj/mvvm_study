@@ -31,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<HomeViewModel>(context);
+    final viewModel = context.watch<HomeViewModel>();
+    // final viewModel = Provider.of<HomeViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () async {
-                    await viewModel.fetch(controller.text);
+                    await context.read<HomeViewModel>().fetch(controller.text);
                     // final photos =
                     //     await photoProvider.api.fetch(controller.text);
                     // setState(() {
@@ -68,32 +69,24 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          StreamBuilder<List<Photo>>(
-              stream: viewModel.photoStream,
-              builder: (context, snapshot) {
-                if (snapshot.data == null || !snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-                final photos = snapshot.data!;
-                return Expanded(
-                  child: GridView.builder(
-                    padding: const EdgeInsets.all(16),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: photos.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return PhotoWidget(
-                        photo: photos[index],
-                      );
-                    },
-                  ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+              ),
+              shrinkWrap: true,
+              itemCount: viewModel.photos.length,
+              itemBuilder: (BuildContext context, int index) {
+                final photo = viewModel.photos[index];
+                return PhotoWidget(
+                  photo: photo,
                 );
-              }),
+              },
+            ),
+          ),
         ],
       ),
     );

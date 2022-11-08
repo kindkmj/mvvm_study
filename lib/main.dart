@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Provider(
+      home: ChangeNotifierProvider(
         create: (_) => HomeViewModel(
           PixabayApi(),
         ),
